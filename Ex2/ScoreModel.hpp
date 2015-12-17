@@ -21,13 +21,13 @@ public:
     
     ScoreModel(ScoreModelType eType);
     
-    float getScore(const Policy::State& cState, ActionType eAction) const;
+    float getScore(const Policy::State& cState, ActionType eAction) const throw(...);
     
 private:
     
     const ScoreModelType m_eType;
     
-    float getScoreBySidewardsInnaccuracy(const Policy::State& cState, ActionType eAction) const;
+    float getScoreBySidewardsInnaccuracy(const Policy::State& cState, ActionType eAction) const throw(...);
     
     
 };

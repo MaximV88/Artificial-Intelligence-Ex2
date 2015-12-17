@@ -9,6 +9,7 @@
 #include "Policy.hpp"
 #include "PolicyByValueIteration.hpp"
 #include "Tile.hpp"
+#include "Map.hpp"
 #include <stdexcept>
 
 using namespace policy;
@@ -21,10 +22,34 @@ Policy* Policy::createPolicy(PolicyType eType, const Map &cMap, const ScoreModel
     
 }
 
-Policy::~Policy() { }
+Policy::Policy(std::vector<const State*> vcStates) :
+m_vcStates(vcStates) { }
 
-ActionType Policy::action(const Tile &cTile) const { return action(cTile.getX(), cTile.getY()); }
+Policy::~Policy() {
+
+    //Delete all of the stored states
+    for (std::vector<const State*>::const_iterator iterator = m_vcStates.begin() ; iterator != m_vcStates.end() ; iterator++)
+        delete (*iterator);
+
+}
+
+std::vector<const Policy::State*> Policy::getStates() const { return m_vcStates; }
 
 std::ostream& policy::operator<<(std::ostream &out, const Policy &cPolicy) {
+        
     return out;
+}
+
+#pragma mark - State functions
+
+Policy::State::State(const Tile& cTile) :
+m_cTile(cTile) { }
+
+Policy::State::~State() { }
+
+const Tile& Policy::State::getTile() const {
+    
+    //Returns the internally stored pointer
+    return m_cTile;
+    
 }

@@ -14,11 +14,11 @@
 #include <vector>
 
 enum Types {
+    kStart = 0,
     kRoad = 1,
     kDirt = 3,
     kHill = 10,
     kWater,
-    kStart,
     kEnd = 100
 };
 

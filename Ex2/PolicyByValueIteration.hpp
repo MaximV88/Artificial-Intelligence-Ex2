@@ -32,11 +32,10 @@ public:
     /**
      * Returns the actions the policy decided for the tile at the input coordinate
      *
-     * @param uiX The X coordinate for a requested query.
-     * @param uiY The Y coordinate for a requested query.
-     * @return Direction that is considered best to go to by the policy (best action to perform)
+     * @param cState The state that the action is considered for.
+     * @return Action that is considered best to go to by the policy (best action to perform)
      */
-    virtual ActionType action(size_t uiX, size_t uiY) const;
+    virtual ActionType bestAction(const Policy::State& cState) const throw();
     
     /**
      * Desctructor.
@@ -56,24 +55,40 @@ private:
         
         StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile& cTile);
         
-        virtual float getValue() const;
         virtual float getUtility() const;
         virtual float getUtility(ActionType eAction) const throw(...);
-        
-        const Tile& getTile() const;
-        
+                
     private:
         
         const PolicyByValueIteration& m_cPolicy;
-        const Tile& m_cTile;
         
     };
     
     struct StateByValueIterationComparatorLessThan {
-        bool operator() (const StateByValueIteration lhs, const StateByValueIteration rhs) {
-            return lhs.getTile() < rhs.getTile();
+        bool operator() (const StateByValueIteration* lhs, const StateByValueIteration* rhs) {
+            return lhs->getTile() < rhs->getTile();
         }
     };
+
+    /**
+     * Perform a Value Iteration algorithm with the current Utility values, Returns the resulting Utility values.
+     *
+     * @param cMap The map that the Policy should calculate from.
+     * @param cScoreModel The model that is to calculate the scores for a pair of states.
+     * @param cReward The reward system.
+     * @param cDiscount The discount value for policy calculations
+     * @return A float dynamic array that holds the value per state in it's index mapped to map coordinates.
+     */
+    float* valueIteration(const Map& cMap, const ScoreModel& cScoreModel, const Rewards& cReward, float fDiscount) const;
+    
+    /**
+     * Returns the best actions that can be made based on the input Utility values.
+     *
+     * @param cMap The map that the actions should be mapped to (via index).
+     * @param fUtilities An array containing the Utility values mapped to the input map.
+     * @return A dynamic array that contains the best actions mapped to the map coordinates.
+     */
+    ActionType* bestActions(const Map& cMap, float* fUtilities) const;
     
     /**
      * Returns the Utility value for the input state.
@@ -84,23 +99,27 @@ private:
     float getUtility(const StateByValueIteration& cState) const;
     
     /**
-     * Sets the Utility value for that state to the input parameter.
+     * Builds the states that represent the map.
      *
-     * @param fUtility The Utility value for the associated state.
-     * @param cState The state which the Utility value is to be set unto.
+     * @param cMap The map that the states should represent.
      */
-    void setUtility(float fUtility, const StateByValueIteration& cState);
+    std::vector<const State*> buildStates(const Map& cMap) const;
     
     /**
-     * Allocates a dynamic array to hold the Utility values for the states.
+     * Allocates a dynamic array of a given type.
      *
-     * @param The map that the utilities will be mapped to.
+     * @param The map that the actions will be mapped to.
+     * @param The initial value the array will be assigned to.
      * @return A dynamic array with size of the input map.
      */
-    float* buildDefaultUtilities(const Map& cMap) const;
+    template<class T>
+    T* buildDynamicArray(const Map& cMap, T tInitialValue) const;
     
-    ///The utilities are stored in a dynamic array with indexes that map to coordinates of tiles (which they hold values for).
+    ///The Uilities are stored in a dynamic array with indexes that map to coordinates of tiles (which they hold values for).
     float* m_fUtilities = NULL;
+    
+    ///Stores the best actions that should be performed based on coordinates
+    ActionType* m_eBestActions = NULL;
     
     ///The map object that the policy is constructed for
     const Map& m_cMap;

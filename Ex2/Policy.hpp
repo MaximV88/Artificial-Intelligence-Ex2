@@ -10,6 +10,7 @@
 #define Policy_hpp
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #define POLICY_NAMESPACE_BEGIN namespace policy {
 #define POLICY_NAMESPACE_END }
@@ -47,6 +48,59 @@ class Policy {
 public:
     
     /**
+     * Describes the state with which the policy can decide the best actions for.
+     */
+    class State {
+    public:
+        
+        /**
+         * Constructor.
+         *
+         * @param cTile A tile that the state's position represents.
+         */
+        State(const Tile& cTile);
+        
+        /**
+         * Returns the position (tile) that the state represents.
+         *
+         * @return A tile that the state represents.
+         */
+        const Tile& getTile() const;
+        
+        /**
+         * Destructor.
+         */
+        virtual ~State();
+        
+    protected:
+        
+        /* 
+         * ScoreModel needs access to Utility values to perform it's task.
+         * It is a logical seperation of Policy to allow multiple implementations
+         * of ScoreModels without changing the Policy implementation.
+         */
+        friend class ScoreModel;
+        
+        /**
+         * Returns the utility value for the state.
+         * 
+         * @return A utility value.
+         */
+        virtual float getUtility() const = 0;
+        
+        /**
+         * Returns the utility value that results from performing the input action.
+         * 
+         * @return A utility value.
+         */
+        virtual float getUtility(ActionType eAction) const throw(...) = 0;
+                
+        ///Holds the position that the state represents.
+        const Tile& m_cTile;
+        
+    };
+    
+    /**
      * Returns the action the policy decided for the input tile
      *
      * @param eType The wanted action type the policy should follow.
@@ -64,21 +118,19 @@ public:
                                 float fDiscount);
     
     /**
-     * Returns the action the policy decided for the input tile
+     * Constructor.
      *
-     * @param cTile The tile that the action is considered for.
-     * @return Direction that is considered best to go to by the policy (best action to perform)
+     * @param vcStates The states that the policy should be performed on. 
      */
-    ActionType action(const Tile& cTile) const throw(...);
+    Policy(std::vector<const Policy::State*> vcStates);
     
     /**
-     * Returns the actions the policy decided for the tile at the input coordinate
+     * Returns the action the policy decided for the input tile
      *
-     * @param uiX The X coordinate for a requested query.
-     * @param uiY The Y coordinate for a requested query.
-     * @return Direction that is considered best to go to by the policy (best action to perform)
+     * @param cState The state that the action is considered for.
+     * @return Action that is considered best to go to by the policy (best action to perform)
      */
-    virtual ActionType action(size_t uiX, size_t uiY) const throw(...) = 0;
+    virtual ActionType bestAction(const Policy::State& cState) const throw() = 0;
     
     /**
      * Prints the Policy, including the internal action layout of the input map.
@@ -91,27 +143,21 @@ public:
     friend std::ostream& operator<<(std::ostream &out, const Policy &cPolicy);
     
     /**
+     * Returns the states that are used in the policy.
+     *
+     * @return Vector containing all states.
+     */
+    virtual std::vector<const State*> getStates() const;
+    
+    /**
      * Desctructor.
      */
     virtual ~Policy();
     
 protected:
     
-    /*
-     * The ScoreModel class has outsourced functionality that is performed by Policy subclasses,
-     * therefore it needs access to the State class to complete these calculations.
-     */
-    friend class ScoreModel;
-    friend class Rewards;
-    
-    class State {
-    public:
-        
-        virtual float getValue() const = 0;
-        virtual float getUtility() const = 0;
-        virtual float getUtility(ActionType eAction) const throw(...) = 0;
-        
-    };
+    ///Stores the states that are contained in the policy.
+    const std::vector<const State*> m_vcStates;
     
 };
 

@@ -84,10 +84,24 @@ Map::Map(const std::string& strFormattedMap) : m_cData(NULL) {
 
 }
 
+Map::Map(const Map& cMap) :
+m_uiHeight(cMap.m_uiHeight), m_uiWidth(cMap.m_uiWidth) {
+    
+    //Copy the size of the array
+    m_cData = new Tile*[m_uiHeight * m_uiWidth];
+
+    size_t uiMapSize = cMap.getTilesCount();
+    
+    //And assign copies of the tiles to the new map
+    for (size_t uiIndex = 0 ; uiIndex < uiMapSize ; uiIndex++)
+        m_cData[uiIndex] = new Tile(*cMap.m_cData[uiIndex]);
+    
+}
+
 Map::~Map() {
 
     //Delete the allocated dynamic array
-    if (m_cData) delete  m_cData;
+    if (m_cData) delete [] m_cData;
 
 }
 

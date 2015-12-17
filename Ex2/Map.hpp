@@ -51,6 +51,13 @@ public:
      */
     Map(const std::string& strFormattedMap);
     
+    /**
+     * Copy Constructor.
+     *
+     * @param The map to be copied.
+     */
+    Map(const Map& cMap);
+    
     /** 
      * Destructor.
      */
