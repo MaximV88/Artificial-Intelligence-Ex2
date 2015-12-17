@@ -21,10 +21,6 @@ int main(int argc, const char * argv[]) {
     //Read the file to seperate the contents of map and algorithm
     std::ifstream ifs("input.txt");
     
-    //Get the algorithm type
-    std::string strAlgorithmType;
-    std::getline(ifs, strAlgorithmType);
-    
     //Get the formatted map (reading from current location until end of file)
     std::string strFormattedMap((std::istreambuf_iterator<char>(ifs) ),
                                 (std::istreambuf_iterator<char>()    ));
@@ -45,10 +41,7 @@ int main(int argc, const char * argv[]) {
                                            ScoreModel(kScoreModelTypeSidewaysInnaccuracy),
                                           
                                            //The rewards the policy should consider
-                                           Rewards(kRewardTypeTileValuePenalty),
-                                          
-                                           //The discount value (1 means that we dont consider this a discount model)
-                                           1);
+                                           Rewards(kRewardTypeTileValuePenalty));
 
     
     std::cout << *cPolicy;

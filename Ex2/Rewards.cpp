@@ -27,12 +27,12 @@ float Rewards::getReward(const Policy::State& cState) const {
 
 float Rewards::getRewardByTileValuePenalty(const Policy::State& cState) const {
     
-    const Tile& cTile = cState.getTile();
+    const Tile* cTile = cState.getTile();
     
     //Only the final State (which is 100) is a positive reward
-    if (cTile.eType == kEnd) return 100;
+    if (cTile->eType == kEnd) return 100;
     
     //Return the penalty of that value (multiply by -1)
-    return ((-1) * cTile.eType);
+    return ((-1) * cTile->eType);
     
 }

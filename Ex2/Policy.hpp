@@ -56,16 +56,23 @@ public:
         /**
          * Constructor.
          *
-         * @param cTile A tile that the state's position represents.
+         * @param cTile A tile that the state's position represents. Must not be nil.
          */
-        State(const Tile& cTile);
+        State(const Tile* cTile);
+        
+        /**
+         * Copy Constructor.
+         *
+         * @param The state to copy.
+         */
+        State(const State& cState);
         
         /**
          * Returns the position (tile) that the state represents.
          *
          * @return A tile that the state represents.
          */
-        const Tile& getTile() const;
+        const Tile* getTile() const;
         
         /**
          * Destructor.
@@ -96,7 +103,7 @@ public:
         virtual float getUtility(ActionType eAction) const throw(...) = 0;
                 
         ///Holds the position that the state represents.
-        const Tile& m_cTile;
+        const Tile* m_cTile = NULL;
         
     };
     
@@ -115,7 +122,7 @@ public:
                                 const Map& cMap,
                                 const ScoreModel& cScoreModel,
                                 const Rewards& cReward,
-                                float fDiscount);
+                                float fDiscount = 1);
     
     /**
      * Constructor.
@@ -147,7 +154,7 @@ public:
      *
      * @return Vector containing all states.
      */
-    virtual std::vector<const State*> getStates() const;
+    std::vector<const State*> getStates() const;
     
     /**
      * Desctructor.

@@ -36,18 +36,33 @@ Policy::~Policy() {
 std::vector<const Policy::State*> Policy::getStates() const { return m_vcStates; }
 
 std::ostream& policy::operator<<(std::ostream &out, const Policy &cPolicy) {
-        
+    
+    /*
+     * The format to print is: <line>,<row>,<action> by printing
+     * every row completly before going to the next one.
+     */
+    
+    
+    
+    
     return out;
 }
 
 #pragma mark - State functions
 
-Policy::State::State(const Tile& cTile) :
+Policy::State::State(const Tile* cTile) :
 m_cTile(cTile) { }
 
-Policy::State::~State() { }
+Policy::State::State(const State& cState) :
+m_cTile(new Tile(*cState.m_cTile)) { }
 
-const Tile& Policy::State::getTile() const {
+Policy::State::~State() {
+
+    if (m_cTile) delete m_cTile;
+
+}
+
+const Tile* Policy::State::getTile() const {
     
     //Returns the internally stored pointer
     return m_cTile;

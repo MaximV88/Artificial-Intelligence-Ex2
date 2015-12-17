@@ -23,7 +23,7 @@ Policy(buildStates(cMap)), m_cMap(cMap) {
     //TODO: fix copy of vector using reference
     
     //Build the internal representation of the input map
-    m_fUtilities = buildDynamicArray<float>(cMap, UTILITY_INITIAL_VALUE);
+    m_fUtilities = buildDynamicArray<float>(cMap.getTilesCount(), UTILITY_INITIAL_VALUE);
     
     int i = 0;
     while (i++ < 100) {
@@ -57,13 +57,11 @@ PolicyByValueIteration::~PolicyByValueIteration() {
 
 float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::ScoreModel &cScoreModel, const policy::Rewards &cReward, float fDiscount) const {
     
-    std::vector<const State*> vcStates = getStates();
-    
     //The Utility array to hold temporary values
-    float* fUtilities = buildDynamicArray<float>(cMap, UTILITY_INITIAL_VALUE);
+    float* fUtilities = buildDynamicArray<float>(cMap.getTilesCount(), UTILITY_INITIAL_VALUE);
     
     //Iterate over all of the states
-    for (std::vector<const State*>::const_iterator iterator = vcStates.begin() ; iterator != vcStates.end() ; iterator++) {
+    for (std::vector<const State*>::const_iterator iterator = m_vcStates.begin() ; iterator != m_vcStates.end() ; iterator++) {
         
         /*
          * The iteration is made towards each possible action, in which the maximum
@@ -71,7 +69,7 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
          */
         float fBestUtility = 0.0;
         bool bWasUtilityAssigned = false;
-        for (int iAction = kActionTypeNone ; iAction < kActionTypeTotalNumber ; iAction++) {
+        for (int iAction = kActionTypeNone + 1 ; iAction < kActionTypeTotalNumber ; iAction++) {
             
             try {
                 
@@ -97,7 +95,7 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
         }
         
         //Assign the value to the temporary array to be used a future utility (once iteration is over)
-        fUtilities[cMap.getIndex((*iterator)->getTile())] = cReward.getReward(**iterator) + fBestUtility * fDiscount;
+        fUtilities[cMap.getIndex(*(*iterator)->getTile())] = cReward.getReward(**iterator) + fBestUtility * fDiscount;
         
     }
     
@@ -107,20 +105,18 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
 
 ActionType* PolicyByValueIteration::bestActions(const Map &cMap, float *fUtilities) const {
     
-    std::vector<const State*> vcStates = getStates();
-
     //Create a dynamic array filled with initalized values
-    ActionType* eActions = buildDynamicArray<ActionType>(cMap, kActionTypeNone);
+    ActionType* eActions = buildDynamicArray<ActionType>(cMap.getTilesCount(), kActionTypeNone);
     
     //Iterate over all of the states
-    for (std::vector<const State*>::const_iterator iterator = vcStates.begin() ; iterator != vcStates.end() ; iterator++) {
+    for (std::vector<const State*>::const_iterator iterator = m_vcStates.begin() ; iterator != m_vcStates.end() ; iterator++) {
 
         //For the current state, consider the best actions from the input utility values
         float fBestUtility = 0.0;
         ActionType eBestAction = kActionTypeNone;
         bool bWasUtilityAssigned = false;
         
-        for (int iAction = kActionTypeNone ; iAction < kActionTypeTotalNumber ; iAction++) {
+        for (int iAction = kActionTypeNone + 1 ; iAction < kActionTypeTotalNumber ; iAction++) {
             
             try {
                 
@@ -150,7 +146,7 @@ ActionType* PolicyByValueIteration::bestActions(const Map &cMap, float *fUtiliti
             
         }
         
-        eActions[cMap.getIndex((*iterator)->getTile())] = eBestAction;
+        eActions[cMap.getIndex(*(*iterator)->getTile())] = eBestAction;
         
     }
     
@@ -163,8 +159,8 @@ ActionType PolicyByValueIteration::bestAction(const Policy::State& cState) const
     //Gets the index from the Map object and returns the stored best action
     try {
         
-        const Tile& cTile = cState.getTile();
-        return m_eBestActions[m_cMap.getIndex(cTile.getX(), cTile.getY())];
+        const Tile* cTile = cState.getTile();
+        return m_eBestActions[m_cMap.getIndex(cTile->getX(), cTile->getY())];
         
     } catch (...) {
         
@@ -178,7 +174,7 @@ ActionType PolicyByValueIteration::bestAction(const Policy::State& cState) const
 float PolicyByValueIteration::getUtility(const StateByValueIteration &cState) const {
     
     //Gets the index from the Map object and returns the stored value
-    return m_fUtilities[m_cMap.getIndex(cState.getTile())];
+    return m_fUtilities[m_cMap.getIndex(*cState.getTile())];
 
 }
 
@@ -188,7 +184,7 @@ std::vector<const Policy::State*> PolicyByValueIteration::buildStates(const Map 
     std::stack<const StateByValueIteration*> vcFrontier;
     
     //The algorithm needs a tile to start from
-    vcFrontier.push(new StateByValueIteration(*this, cMap.getStartTile()));
+    vcFrontier.push(new StateByValueIteration(*this, new Tile(cMap.getStartTile())));
     
     //Traversal order of Utility calculation does not matter
     while (!vcFrontier.empty()) {
@@ -202,10 +198,10 @@ std::vector<const Policy::State*> PolicyByValueIteration::buildStates(const Map 
         scVisited.insert(cState);
         
         //Enter all of the neighbors to be considered
-        std::vector<const Tile*> vcNeighbors = cState->getTile().getNeighbors();
+        std::vector<const Tile*> vcNeighbors = cState->getTile()->getNeighbors();
         for (size_t uiIndex = 0 ; uiIndex < vcNeighbors.size() ; uiIndex++) {
             
-            const StateByValueIteration* cNeighborState = new StateByValueIteration(*this, *vcNeighbors[uiIndex]);
+            const StateByValueIteration* cNeighborState = new StateByValueIteration(*this, new Tile(*vcNeighbors[uiIndex]));
             
             //If not already visited in, push for a future iteration
             if (scVisited.find(cNeighborState) == scVisited.end())
@@ -227,15 +223,14 @@ std::vector<const Policy::State*> PolicyByValueIteration::buildStates(const Map 
 
 #pragma mark - Template functions
 
-template<class T>
-T* PolicyByValueIteration::buildDynamicArray(const Map& cMap, T tInitialValue) const {
+template<typename T>
+T* PolicyByValueIteration::buildDynamicArray(size_t uiSize, T tInitialValue) const {
     
     //Build a dynamic array that maps to the size of the input map
-    size_t uiTotalStates = cMap.getTilesCount();
-    T* tTypes = new T[uiTotalStates];
+    T* tTypes = new T[uiSize];
     
     //Initialize and send back
-    for (size_t uiIndex = 0 ; uiIndex < uiTotalStates ; uiIndex++)
+    for (size_t uiIndex = 0 ; uiIndex < uiSize ; uiIndex++)
         tTypes[uiIndex] = tInitialValue;
     
     return tTypes;
@@ -244,7 +239,7 @@ T* PolicyByValueIteration::buildDynamicArray(const Map& cMap, T tInitialValue) c
 
 #pragma mark - StateByValueIteration functions
 
-PolicyByValueIteration::StateByValueIteration::StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile& cTile) :
+PolicyByValueIteration::StateByValueIteration::StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile* cTile) :
 State(cTile), m_cPolicy(cPolicy) { }
 
 float PolicyByValueIteration::StateByValueIteration::getUtility() const {
@@ -257,6 +252,6 @@ float PolicyByValueIteration::StateByValueIteration::getUtility() const {
 float PolicyByValueIteration::StateByValueIteration::getUtility(ActionType eAction) const {
     
     //Find the tile in the requested direction and ask for it's utility (Directions and ActionType are mapped to same meaning)
-    return m_cPolicy.getUtility(StateByValueIteration(m_cPolicy, m_cTile.getNeighbor(static_cast<Directions>(eAction))));
+    return m_cPolicy.getUtility(StateByValueIteration(m_cPolicy, new Tile(m_cTile->getNeighbor(static_cast<Directions>(eAction)))));
     
 }

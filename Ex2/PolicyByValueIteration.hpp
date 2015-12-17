@@ -53,7 +53,7 @@ private:
     class StateByValueIteration : public State {
     public:
         
-        StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile& cTile);
+        StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile* cTile);
         
         virtual float getUtility() const;
         virtual float getUtility(ActionType eAction) const throw(...);
@@ -66,7 +66,7 @@ private:
     
     struct StateByValueIterationComparatorLessThan {
         bool operator() (const StateByValueIteration* lhs, const StateByValueIteration* rhs) {
-            return lhs->getTile() < rhs->getTile();
+            return *(lhs->getTile()) < *(rhs->getTile());
         }
     };
 
@@ -113,7 +113,7 @@ private:
      * @return A dynamic array with size of the input map.
      */
     template<class T>
-    T* buildDynamicArray(const Map& cMap, T tInitialValue) const;
+    T* buildDynamicArray(size_t uiSize, T tInitialValue) const;
     
     ///The Uilities are stored in a dynamic array with indexes that map to coordinates of tiles (which they hold values for).
     float* m_fUtilities = NULL;
