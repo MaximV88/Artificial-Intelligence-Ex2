@@ -19,11 +19,11 @@ enum Types {
     kHill = 10,
     kWater,
     kStart,
-    kEnd
+    kEnd = 100
 };
 
 enum Directions {
-    kRight,
+    kRight = 0,
     kLeft,
     kUp,
     kDown,
@@ -50,7 +50,6 @@ public:
 
     //Public Variables
     const Types eType;
-    
 
     /** Constructor */
     Tile(Types eTileType, size_t uiPositionX, size_t uiPositionY);
@@ -58,16 +57,24 @@ public:
     /** Copy Constructor */
     Tile(const Tile& cTile);
     
+    /** Destructor */
+    virtual ~Tile();
+    
     /** Returns the direction between the input tiles */
     Directions getDirection(const Tile& cDestination) const;
     
     /** Returns the neighbors of the current tile */
     std::vector<const Tile*> getNeighbors() const;
     
+    const Tile& getNeighbor(Directions eDirection) const throw(...);
+    
+    size_t getX() const;
+    size_t getY() const;
+    
     /** Returns a string that represents the type of the tile */
     std::string kind() const;
     
-    /** Returhs a char that represents the type of the tile */
+    /** Returns a char that represents the type of the tile */
     char type() const;
     
     /** opeartor == */

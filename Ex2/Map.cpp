@@ -14,6 +14,18 @@
 
 size_t Map::index(size_t x, size_t y) const { return x + m_uiWidth * y; }
 
+size_t Map::getIndex(const Tile &cTile) const { return index(cTile.getX(), cTile.getY()); }
+
+size_t Map::getIndex(size_t uiX, size_t uiY) const {
+    
+    if (uiX >= m_uiWidth || uiY >= m_uiHeight)
+        throw std::runtime_error("Invalid Coordinate.");
+    
+    //Use unsafe method once the input has been validated
+    return index(uiX, uiY);
+
+}
+
 size_t Map::getTilesCount() const { return m_uiHeight * m_uiWidth; }
 
 Map::Map(const std::string& strFormattedMap) : m_cData(NULL) {

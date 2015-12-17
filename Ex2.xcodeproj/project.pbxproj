@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		9475578E1C208F6A0096A8E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9475578D1C208F6A0096A8E5 /* main.cpp */; };
 		947557961C208FA60096A8E5 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557941C208FA60096A8E5 /* Map.cpp */; };
-		9475579B1C208FAD0096A8E5 /* Path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557971C208FAD0096A8E5 /* Path.cpp */; };
 		9475579C1C208FAD0096A8E5 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557991C208FAD0096A8E5 /* Tile.cpp */; };
-		9475579F1C208FE40096A8E5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9475579E1C208FE40096A8E5 /* README.md */; };
+		947557A51C2161760096A8E5 /* Policy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557A31C2161760096A8E5 /* Policy.cpp */; };
+		947557A81C2165520096A8E5 /* PolicyByValueIteration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557A61C2165520096A8E5 /* PolicyByValueIteration.cpp */; };
+		947557AC1C2167D20096A8E5 /* Rewards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557AA1C2167D20096A8E5 /* Rewards.cpp */; };
+		947557B81C21FCEB0096A8E5 /* ScoreModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 947557B61C21FCEB0096A8E5 /* ScoreModel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,12 +33,19 @@
 		9475578D1C208F6A0096A8E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		947557941C208FA60096A8E5 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		947557951C208FA60096A8E5 /* Map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
-		947557971C208FAD0096A8E5 /* Path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Path.cpp; sourceTree = "<group>"; };
-		947557981C208FAD0096A8E5 /* Path.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Path.hpp; sourceTree = "<group>"; };
 		947557991C208FAD0096A8E5 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 		9475579A1C208FAD0096A8E5 /* Tile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
 		9475579D1C208FE40096A8E5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9475579E1C208FE40096A8E5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		947557A01C2091D60096A8E5 /* input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
+		947557A31C2161760096A8E5 /* Policy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Policy.cpp; sourceTree = "<group>"; };
+		947557A41C2161760096A8E5 /* Policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Policy.hpp; sourceTree = "<group>"; };
+		947557A61C2165520096A8E5 /* PolicyByValueIteration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolicyByValueIteration.cpp; sourceTree = "<group>"; };
+		947557A71C2165520096A8E5 /* PolicyByValueIteration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PolicyByValueIteration.hpp; sourceTree = "<group>"; };
+		947557AA1C2167D20096A8E5 /* Rewards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rewards.cpp; sourceTree = "<group>"; };
+		947557AB1C2167D20096A8E5 /* Rewards.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rewards.hpp; sourceTree = "<group>"; };
+		947557B61C21FCEB0096A8E5 /* ScoreModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreModel.cpp; sourceTree = "<group>"; };
+		947557B71C21FCEB0096A8E5 /* ScoreModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScoreModel.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,14 +81,61 @@
 			isa = PBXGroup;
 			children = (
 				9475578D1C208F6A0096A8E5 /* main.cpp */,
+				947557A91C21675B0096A8E5 /* Policy */,
+				947557A21C2096D80096A8E5 /* Terrain */,
+				947557A11C2091D90096A8E5 /* Tests */,
+			);
+			path = Ex2;
+			sourceTree = "<group>";
+		};
+		947557A11C2091D90096A8E5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				947557A01C2091D60096A8E5 /* input.txt */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		947557A21C2096D80096A8E5 /* Terrain */ = {
+			isa = PBXGroup;
+			children = (
 				947557951C208FA60096A8E5 /* Map.hpp */,
 				947557941C208FA60096A8E5 /* Map.cpp */,
-				947557981C208FAD0096A8E5 /* Path.hpp */,
-				947557971C208FAD0096A8E5 /* Path.cpp */,
 				9475579A1C208FAD0096A8E5 /* Tile.hpp */,
 				947557991C208FAD0096A8E5 /* Tile.cpp */,
 			);
-			path = Ex2;
+			name = Terrain;
+			sourceTree = "<group>";
+		};
+		947557A91C21675B0096A8E5 /* Policy */ = {
+			isa = PBXGroup;
+			children = (
+				947557B11C216E570096A8E5 /* Score */,
+				947557AD1C2167DA0096A8E5 /* Reward */,
+				947557A41C2161760096A8E5 /* Policy.hpp */,
+				947557A31C2161760096A8E5 /* Policy.cpp */,
+				947557A71C2165520096A8E5 /* PolicyByValueIteration.hpp */,
+				947557A61C2165520096A8E5 /* PolicyByValueIteration.cpp */,
+			);
+			name = Policy;
+			sourceTree = "<group>";
+		};
+		947557AD1C2167DA0096A8E5 /* Reward */ = {
+			isa = PBXGroup;
+			children = (
+				947557AB1C2167D20096A8E5 /* Rewards.hpp */,
+				947557AA1C2167D20096A8E5 /* Rewards.cpp */,
+			);
+			name = Reward;
+			sourceTree = "<group>";
+		};
+		947557B11C216E570096A8E5 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				947557B71C21FCEB0096A8E5 /* ScoreModel.hpp */,
+				947557B61C21FCEB0096A8E5 /* ScoreModel.cpp */,
+			);
+			name = Score;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +194,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9475579B1C208FAD0096A8E5 /* Path.cpp in Sources */,
+				947557A81C2165520096A8E5 /* PolicyByValueIteration.cpp in Sources */,
+				947557A51C2161760096A8E5 /* Policy.cpp in Sources */,
+				947557AC1C2167D20096A8E5 /* Rewards.cpp in Sources */,
+				947557B81C21FCEB0096A8E5 /* ScoreModel.cpp in Sources */,
 				947557961C208FA60096A8E5 /* Map.cpp in Sources */,
-				9475579F1C208FE40096A8E5 /* README.md in Sources */,
 				9475578E1C208F6A0096A8E5 /* main.cpp in Sources */,
 				9475579C1C208FAD0096A8E5 /* Tile.cpp in Sources */,
 			);
@@ -231,6 +289,9 @@
 		947557921C208F6A0096A8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -238,6 +299,9 @@
 		947557931C208F6A0096A8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

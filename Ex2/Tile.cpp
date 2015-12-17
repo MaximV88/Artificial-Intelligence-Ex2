@@ -16,6 +16,8 @@ eType(eTileType), m_uiPositionX(uiPositionX), m_uiPositionY(uiPositionY) { }
 Tile::Tile(const Tile& cTile) :
 eType(cTile.eType), m_uiPositionX(cTile.m_uiPositionX), m_uiPositionY(cTile.m_uiPositionY), m_vcNeighbors(cTile.m_vcNeighbors) { }
 
+Tile::~Tile() { }
+
 void Tile::setNeighbors(const std::vector<const Tile *> &vcNeighbors) {
     
     //Copy
@@ -29,6 +31,21 @@ std::vector<const Tile*> Tile::getNeighbors() const {
     return m_vcNeighbors;
     
 }
+
+const Tile& Tile::getNeighbor(Directions eDirection) const {
+
+    //Find the neighbor that in the requested direction
+    for (std::vector<const Tile*>::const_iterator iterator = m_vcNeighbors.begin() ; iterator != m_vcNeighbors.end() ; iterator++)
+        if (getDirection(**iterator) == eDirection)
+            return **iterator;
+    
+    throw std::runtime_error("No Tile found in the requested direction.");
+    
+}
+
+size_t Tile::getX() const { return m_uiPositionX; }
+
+size_t Tile::getY() const { return m_uiPositionY; }
 
 Directions Tile::getDirection(const Tile& cDestination) const {
     

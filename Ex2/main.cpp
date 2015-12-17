@@ -7,9 +7,54 @@
 //
 
 #include <iostream>
+#include <fstream>
+
+#include "Map.hpp"
+#include "Policy.hpp"
+#include "ScoreModel.hpp"
+#include "Rewards.hpp"
+
+using namespace policy;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+    //Read the file to seperate the contents of map and algorithm
+    std::ifstream ifs("input.txt");
+    
+    //Get the algorithm type
+    std::string strAlgorithmType;
+    std::getline(ifs, strAlgorithmType);
+    
+    //Get the formatted map (reading from current location until end of file)
+    std::string strFormattedMap((std::istreambuf_iterator<char>(ifs) ),
+                                (std::istreambuf_iterator<char>()    ));
+    
+    
+    //Create the representation of the map
+    Map cMap = Map(strFormattedMap);
+
+    Policy* cPolicy = Policy::createPolicy(
+                                          
+                                           //The required type is for value iteration
+                                           kPolicyTypeValueIteration,
+                                          
+                                           //The Map the policy should be built on
+                                           cMap,
+                                          
+                                           //The transition model the policy should decide by
+                                           ScoreModel(kScoreModelTypeSidewaysInnaccuracy),
+                                          
+                                           //The rewards the policy should consider
+                                           Rewards(kRewardTypeTileValuePenalty),
+                                          
+                                           //The discount value (1 means that we dont consider this a discount model)
+                                           1);
+
+    
+    std::cout << *cPolicy;
+    
+    delete cPolicy;
+    
     return 0;
+
 }
