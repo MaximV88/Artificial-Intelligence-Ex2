@@ -29,6 +29,10 @@ using namespace policy;
     XCTAssertTrue(compare("input.txt", "output.txt"));
     XCTAssertTrue(compare("input2.txt", "output2.txt"));
     XCTAssertTrue(compare("input3.txt", "output3.txt"));
+    XCTAssertTrue(compare("input4.txt", "output4.txt"));
+    XCTAssertTrue(compare("input5.txt", "output5.txt"));
+    XCTAssertTrue(compare("input6.txt", "output6.txt"));
+    XCTAssertTrue(compare("input7.txt", "output7.txt"));
 
 }
 

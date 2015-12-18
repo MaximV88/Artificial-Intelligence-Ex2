@@ -106,7 +106,7 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
                 //This might raise an exception if there is no state for the requested action
                 float fScore = cScoreModel.getScore(**iterator, static_cast<ActionType>(iAction));
                 
-                //Assign the maximum value
+                //Assign the maximum value - equallity will result in same value so no need
                 if (fScore > fBestUtility)
                     fBestUtility = fScore;
                 
@@ -141,15 +141,20 @@ ActionType* PolicyByValueIteration::bestActions(const Map &cMap, const policy::S
         //If the best utility is the starting utility dont do anything
         ActionType eBestAction = kActionTypeNone;
         
-        for (int iAction = kActionTypeNone + 1 ; iAction < kActionTypeTotalNumber ; iAction++) {
+        for (int iAction = kActionTypeInvalid + 1 ; iAction < kActionTypeTotalNumber ; iAction++) {
             
             try {
                 
                 //Might throw an exception if no state exists for the action - the contained object was created originally in this class
                 float fUtility = cScoreModel.getScore(**iterator, static_cast<ActionType>(iAction));
 
-                //Assign the maximum value
-                if (fUtility > fBestUtility) {
+                /*
+                 * Assign the maximum value - equality considerations as written
+                 * in instructions are already implemented in for loop ordering of actions,
+                 * so the only remaining issue is to keep the assignment ordering fixed to 
+                 * larger int values of actions (action priority).
+                 */
+                if (fUtility > fBestUtility || (fUtility == fBestUtility && eBestAction < iAction)) {
                     
                     fBestUtility = fUtility;
                     eBestAction = static_cast<ActionType>(iAction);
@@ -317,16 +322,17 @@ float PolicyByValueIteration::StateByValueIteration::getUtility() const {
 
 float PolicyByValueIteration::StateByValueIteration::getUtility(ActionType eAction) const {
     
+    //In case no action is required
+    if (eAction == kActionTypeNone) return getUtility();
+    
     //Find the tile in the requested direction and ask for it's utility (Directions and ActionType are mapped to same meaning)
     return m_cPolicy.getUtility(StateByValueIteration(m_cPolicy, m_cTile.getNeighbor(static_cast<Directions>(eAction))));
     
 }
 
 bool PolicyByValueIteration::StateByValueIteration::isTerminal() const {
-    
-    Types eType = getTile().eType;
-    
-    //The start and end states are terminal
-    return (eType == kEnd || eType == kStart);
+
+    //The end state is terminal
+    return (getTile().eType == kEnd);
     
 }

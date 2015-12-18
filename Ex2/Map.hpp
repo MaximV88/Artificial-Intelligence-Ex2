@@ -129,7 +129,18 @@ public:
      */
     const Tile* getTile(size_t uiX, size_t uiY) const throw(...);
     
+    /**
+     * Returns the width of the map.
+     * 
+     * @return Width of the map.
+     */
     size_t getWidth() const;
+    
+    /**
+     * Returns the height of the map.
+     *
+     * @return Height of the map.
+     */
     size_t getHeight() const;
     
 };

@@ -27,6 +27,14 @@
 		947557E81C248F0C0096A8E5 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557E51C248F0C0096A8E5 /* input.txt */; };
 		947557E91C248F0C0096A8E5 /* input2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557E61C248F0C0096A8E5 /* input2.txt */; };
 		947557EA1C248F0C0096A8E5 /* input3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557E71C248F0C0096A8E5 /* input3.txt */; };
+		947557FF1C24A1720096A8E5 /* input4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557FB1C24A1720096A8E5 /* input4.txt */; };
+		947558001C24A1720096A8E5 /* input5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557FC1C24A1720096A8E5 /* input5.txt */; };
+		947558011C24A1720096A8E5 /* input6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557FD1C24A1720096A8E5 /* input6.txt */; };
+		947558021C24A1720096A8E5 /* input7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947557FE1C24A1720096A8E5 /* input7.txt */; };
+		947558071C24A17D0096A8E5 /* output4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947558031C24A17D0096A8E5 /* output4.txt */; };
+		947558081C24A17D0096A8E5 /* output5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947558041C24A17D0096A8E5 /* output5.txt */; };
+		947558091C24A17D0096A8E5 /* output6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947558051C24A17D0096A8E5 /* output6.txt */; };
+		9475580A1C24A17D0096A8E5 /* output7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 947558061C24A17D0096A8E5 /* output7.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +75,14 @@
 		947557E51C248F0C0096A8E5 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 		947557E61C248F0C0096A8E5 /* input2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input2.txt; sourceTree = "<group>"; };
 		947557E71C248F0C0096A8E5 /* input3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input3.txt; sourceTree = "<group>"; };
+		947557FB1C24A1720096A8E5 /* input4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input4.txt; sourceTree = "<group>"; };
+		947557FC1C24A1720096A8E5 /* input5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input5.txt; sourceTree = "<group>"; };
+		947557FD1C24A1720096A8E5 /* input6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input6.txt; sourceTree = "<group>"; };
+		947557FE1C24A1720096A8E5 /* input7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input7.txt; sourceTree = "<group>"; };
+		947558031C24A17D0096A8E5 /* output4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output4.txt; sourceTree = "<group>"; };
+		947558041C24A17D0096A8E5 /* output5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output5.txt; sourceTree = "<group>"; };
+		947558051C24A17D0096A8E5 /* output6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output6.txt; sourceTree = "<group>"; };
+		947558061C24A17D0096A8E5 /* output7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output7.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +200,10 @@
 				947557E51C248F0C0096A8E5 /* input.txt */,
 				947557E61C248F0C0096A8E5 /* input2.txt */,
 				947557E71C248F0C0096A8E5 /* input3.txt */,
+				947557FB1C24A1720096A8E5 /* input4.txt */,
+				947557FC1C24A1720096A8E5 /* input5.txt */,
+				947557FD1C24A1720096A8E5 /* input6.txt */,
+				947557FE1C24A1720096A8E5 /* input7.txt */,
 			);
 			name = Input;
 			sourceTree = "<group>";
@@ -194,6 +214,10 @@
 				947557DF1C248F000096A8E5 /* output.txt */,
 				947557E01C248F000096A8E5 /* output2.txt */,
 				947557E11C248F000096A8E5 /* output3.txt */,
+				947558031C24A17D0096A8E5 /* output4.txt */,
+				947558041C24A17D0096A8E5 /* output5.txt */,
+				947558051C24A17D0096A8E5 /* output6.txt */,
+				947558061C24A17D0096A8E5 /* output7.txt */,
 			);
 			name = Output;
 			sourceTree = "<group>";
@@ -275,12 +299,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				947557FF1C24A1720096A8E5 /* input4.txt in Resources */,
 				947557E31C248F000096A8E5 /* output2.txt in Resources */,
 				947557E21C248F000096A8E5 /* output.txt in Resources */,
 				947557E41C248F000096A8E5 /* output3.txt in Resources */,
+				947558011C24A1720096A8E5 /* input6.txt in Resources */,
 				947557EA1C248F0C0096A8E5 /* input3.txt in Resources */,
+				947558001C24A1720096A8E5 /* input5.txt in Resources */,
 				947557E81C248F0C0096A8E5 /* input.txt in Resources */,
 				947557E91C248F0C0096A8E5 /* input2.txt in Resources */,
+				9475580A1C24A17D0096A8E5 /* output7.txt in Resources */,
+				947558021C24A1720096A8E5 /* input7.txt in Resources */,
+				947558071C24A17D0096A8E5 /* output4.txt in Resources */,
+				947558081C24A17D0096A8E5 /* output5.txt in Resources */,
+				947558091C24A17D0096A8E5 /* output6.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +512,7 @@
 				947557D61C2485700096A8E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -54,12 +54,29 @@ private:
      */
     friend class StateByValueIteration;
     
+    /**
+     * The class is responsible for the implementation of 
+     * State functionality so that it conforms to the operation
+     * of the PolicyByValueIteration class.
+     */
     class StateByValueIteration : public State {
     public:
         
         StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile& cTile);
         
+        /**
+         * Returns the utility value for the state.
+         *
+         * @return A utility value.
+         */
         virtual float getUtility() const;
+        
+        /**
+         * Returns the utility value that results from performing the input action.
+         *
+         * @param eAction The utility that results in performing the input action.
+         * @return A utility value.
+         */
         virtual float getUtility(ActionType eAction) const throw(...);
         
         /**
@@ -71,10 +88,15 @@ private:
         
     private:
         
+        ///Holds a pointer to the policy owner
         const PolicyByValueIteration& m_cPolicy;
         
     };
     
+    /**
+     * Responsible for ordering of States based on their internal representation
+     * that results from the Tile object.
+     */
     struct StateByValueIterationComparatorLessThan {
         bool operator() (const StateByValueIteration* lhs, const StateByValueIteration* rhs) {
             return lhs->getTile() < rhs->getTile();
@@ -116,6 +138,13 @@ private:
      */
     std::vector<const State*> buildStates(const Map& cMap) const;
     
+    /**
+     * Calculates the RMS value based on the input float arrays.
+     *
+     * @param fOld First array
+     * @param fNew Second array
+     * @return the RMS value from the comparison of the input arrays.
+     */
     float calculateRMS(float* fOld, float* fNew) const;
     
     /**

@@ -19,16 +19,16 @@ class Map;
 class Tile;
 
 enum ActionType {
-    kActionTypeInvalid = -2,
-    kActionTypeNone = -1,
-    kActionTypeMoveRight,
-    kActionTypeMoveRightDown,
-    kActionTypeMoveDown,
-    kActionTypeMoveLeftDown,
-    kActionTypeMoveLeft,
-    kActionTypeMoveLeftUp,
-    kActionTypeMoveUp,
+    kActionTypeInvalid = -1,
+    kActionTypeNone,
     kActionTypeMoveRightUp,
+    kActionTypeMoveUp,
+    kActionTypeMoveLeftUp,
+    kActionTypeMoveLeft,
+    kActionTypeMoveLeftDown,
+    kActionTypeMoveDown,
+    kActionTypeMoveRightDown,
+    kActionTypeMoveRight,
     kActionTypeTotalNumber
 };
 
@@ -116,6 +116,7 @@ public:
         /**
          * Returns the utility value that results from performing the input action.
          * 
+         * @param eAction The utility that results in performing the input action.
          * @return A utility value.
          */
         virtual float getUtility(ActionType eAction) const throw(...) = 0;

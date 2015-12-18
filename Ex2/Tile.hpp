@@ -23,15 +23,15 @@ enum Types {
 };
 
 enum Directions {
-    kRight = 0,
-    kRightDown,
-    kDown,
-    kLeftDown,
-    kLeft,
-    kLeftUp,
-    kUp,
+    kCenter = 0,
     kRightUp,
-    kCenter
+    kUp,
+    kLeftUp,
+    kLeft,
+    kLeftDown,
+    kDown,
+    kRightDown,
+    kRight
 };
 
 class Tile {
