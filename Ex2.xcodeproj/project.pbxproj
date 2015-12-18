@@ -51,6 +51,7 @@
 		947557C41C2430F80096A8E5 /* input4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input4.txt; sourceTree = "<group>"; };
 		947557C51C2430F80096A8E5 /* input5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input5.txt; sourceTree = "<group>"; };
 		947557C61C2430F80096A8E5 /* input6.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input6.txt; sourceTree = "<group>"; };
+		947557C71C2471DD0096A8E5 /* input7.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input7.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +103,7 @@
 				947557C41C2430F80096A8E5 /* input4.txt */,
 				947557C51C2430F80096A8E5 /* input5.txt */,
 				947557C61C2430F80096A8E5 /* input6.txt */,
+				947557C71C2471DD0096A8E5 /* input7.txt */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
