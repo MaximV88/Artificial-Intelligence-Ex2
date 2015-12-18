@@ -28,11 +28,6 @@ float ScoreModel::getScoreBySidewardsInnaccuracy(const Policy::State &cState, Ac
      * which we know exist since the sideways tile exists.
      */
     
-    if (cState.getTile().getX() == 0 && cState.getTile().getY() == 1) {
-        int i = 2;
-        i++;
-    }
-    
     switch (eAction) {
         case kActionTypeMoveLeftDown:
             
