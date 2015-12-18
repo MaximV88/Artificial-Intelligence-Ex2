@@ -13,6 +13,8 @@
 #include <set>
 #include <stack>
 #include <stdexcept>
+#include <sstream>
+#include <math.h>
 
 #define UTILITY_INITIAL_VALUE 0
 
@@ -26,22 +28,27 @@ Policy(buildStates(cMap)), m_cMap(cMap) {
     //Build the internal representation of the input map
     m_fUtilities = buildDynamicArray<float>(cMap.getTilesCount(), UTILITY_INITIAL_VALUE);
     
-    int i = 0;
-    while (i++ < 100) {
-        
+    while (true) {
+    
         //Perform the value iteration step
         float* fTemporaryUtilities = valueIteration(cMap, cScoreModel, cReward, fDiscount);
 
+        //Check differences via RMS for termination of iteration
+        double fRMS = calculateRMS(m_fUtilities, fTemporaryUtilities);
+        
         //Remove values that are no longer needed
         delete [] m_fUtilities;
         
         //Once the Utility calculation for the current state is finished, update the values
         m_fUtilities = fTemporaryUtilities;
         
+        if (fRMS == 0.0)
+            break;
+        
     }
     
     //After finishing calculating the Utility values, decide the best actions
-    m_eBestActions = bestActions(cMap, m_fUtilities);
+    m_eBestActions = bestActions(cMap, cScoreModel);
     
 }
 
@@ -56,6 +63,22 @@ PolicyByValueIteration::~PolicyByValueIteration() {
     
 }
 
+float PolicyByValueIteration::calculateRMS(float *fOld, float *fNew) const {
+
+    size_t uiTotalStates = getStates().size();
+    size_t uiTotalTiles = m_cMap.getTilesCount();
+    
+    float fSum = 0;
+    
+    //Calculate the sum of the differences
+    for (size_t uiIndex = 0 ; uiIndex < uiTotalTiles ; uiIndex++)
+        fSum += powf(fOld[uiIndex] - fNew[uiIndex], 2);
+
+    //Return the RMS
+    return ((float)(1 / (float)uiTotalStates) * (sqrtf(fSum)));
+
+}
+
 float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::ScoreModel &cScoreModel, const policy::Rewards &cReward, float fDiscount) const {
     
     //The Utility array to hold temporary values
@@ -68,6 +91,12 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
          * The iteration is made towards each possible action, in which the maximum
          * value score is chosen and set in a temporary utilities array.
          */
+        
+        //The terminal nodes apply only the reward.
+        if ((*iterator)->isTerminal()) {
+            fUtilities[cMap.getIndex((*iterator)->getTile())] = cReward.getReward(**iterator);
+            continue;
+        }
         
         float fBestUtility = getUtility(*static_cast<const StateByValueIteration*>(*iterator));
         for (int iAction = kActionTypeNone + 1 ; iAction < kActionTypeTotalNumber ; iAction++) {
@@ -98,7 +127,7 @@ float* PolicyByValueIteration::valueIteration(const Map &cMap, const policy::Sco
     
 }
 
-ActionType* PolicyByValueIteration::bestActions(const Map &cMap, float *fUtilities) const {
+ActionType* PolicyByValueIteration::bestActions(const Map &cMap, const policy::ScoreModel &cScoreModel) const {
     
     //Create a dynamic array filled with initalized values
     ActionType* eActions = buildDynamicArray<ActionType>(cMap.getTilesCount(), kActionTypeInvalid);
@@ -117,10 +146,10 @@ ActionType* PolicyByValueIteration::bestActions(const Map &cMap, float *fUtiliti
             try {
                 
                 //Might throw an exception if no state exists for the action - the contained object was created originally in this class
-                float fUtility = static_cast<const StateByValueIteration*>(*iterator)->getUtility(static_cast<ActionType>(iAction));
+                float fUtility = cScoreModel.getScore(**iterator, static_cast<ActionType>(iAction));
 
                 //Assign the maximum value
-                if (fUtility > fBestUtility) {
+                if (fUtility > fBestUtility || (fUtility == fBestUtility && eBestAction == kActionTypeNone)) {
                     
                     fBestUtility = fUtility;
                     eBestAction = static_cast<ActionType>(iAction);
@@ -235,6 +264,29 @@ const Policy::State* PolicyByValueIteration::getStateForPosition(size_t uiX, siz
     }
 }
 
+std::string PolicyByValueIteration::statusByUtilities() const {
+    
+    std::string strDescription;
+    
+    for (size_t uiY = 0 ; uiY < m_cMap.getWidth() ; uiY++) {
+        for (size_t uiX = 0 ; uiX < m_cMap.getHeight() ; uiX++) {
+            
+            std::ostringstream os;
+            os<< (m_fUtilities[m_cMap.getIndex(uiX, uiY)]);
+            
+            strDescription += os.str();
+            strDescription += "\t\t";
+
+        }
+    
+        strDescription += "\n";
+        
+    }
+    
+    return strDescription;
+    
+}
+
 #pragma mark - Template functions
 
 template<typename T>
@@ -269,3 +321,5 @@ float PolicyByValueIteration::StateByValueIteration::getUtility(ActionType eActi
     return m_cPolicy.getUtility(StateByValueIteration(m_cPolicy, m_cTile.getNeighbor(static_cast<Directions>(eAction))));
     
 }
+
+bool PolicyByValueIteration::StateByValueIteration::isTerminal() const { return getTile().eType == kEnd; }

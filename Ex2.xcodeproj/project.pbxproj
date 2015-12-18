@@ -47,6 +47,10 @@
 		947557B61C21FCEB0096A8E5 /* ScoreModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreModel.cpp; sourceTree = "<group>"; };
 		947557B71C21FCEB0096A8E5 /* ScoreModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScoreModel.hpp; sourceTree = "<group>"; };
 		947557C21C242EA10096A8E5 /* input2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input2.txt; sourceTree = "<group>"; };
+		947557C31C2430F80096A8E5 /* input3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input3.txt; sourceTree = "<group>"; };
+		947557C41C2430F80096A8E5 /* input4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input4.txt; sourceTree = "<group>"; };
+		947557C51C2430F80096A8E5 /* input5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input5.txt; sourceTree = "<group>"; };
+		947557C61C2430F80096A8E5 /* input6.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input6.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,10 @@
 			children = (
 				947557A01C2091D60096A8E5 /* input.txt */,
 				947557C21C242EA10096A8E5 /* input2.txt */,
+				947557C31C2430F80096A8E5 /* input3.txt */,
+				947557C41C2430F80096A8E5 /* input4.txt */,
+				947557C51C2430F80096A8E5 /* input5.txt */,
+				947557C61C2430F80096A8E5 /* input6.txt */,
 			);
 			name = Tests;
 			sourceTree = "<group>";

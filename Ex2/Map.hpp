@@ -129,6 +129,9 @@ public:
      */
     const Tile* getTile(size_t uiX, size_t uiY) const throw(...);
     
+    size_t getWidth() const;
+    size_t getHeight() const;
+    
 };
 
 #endif /* Map_hpp */

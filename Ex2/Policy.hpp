@@ -76,6 +76,13 @@ public:
         const Tile& getTile() const;
         
         /**
+         * Returns true if terminal state, false otherwise.
+         *
+         * @return True if the State is terminal, false otherwise.
+         */
+        virtual bool isTerminal() const = 0;
+        
+        /**
          * Prints the State.
          *
          * @param out The osteam object that can print.

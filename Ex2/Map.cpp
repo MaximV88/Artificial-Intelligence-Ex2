@@ -14,6 +14,10 @@
 
 size_t Map::index(size_t x, size_t y) const { return x + m_uiWidth * y; }
 
+size_t Map::getWidth() const { return m_uiWidth; }
+
+size_t Map::getHeight() const { return m_uiHeight; }
+
 size_t Map::getIndex(const Tile &cTile) const { return index(cTile.getX(), cTile.getY()); }
 
 size_t Map::getIndex(size_t uiX, size_t uiY) const {

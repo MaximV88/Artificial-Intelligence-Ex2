@@ -19,7 +19,7 @@ using namespace policy;
 int main(int argc, const char * argv[]) {
 
     //Read the file to seperate the contents of map and algorithm
-    std::ifstream ifs("input.txt");
+    std::ifstream ifs("input2.txt");
     
     //Get the formatted map (reading from current location until end of file)
     std::string strFormattedMap((std::istreambuf_iterator<char>(ifs) ),

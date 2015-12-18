@@ -22,12 +22,17 @@ float ScoreModel::getScore(const Policy::State &cState, ActionType eAction) cons
 }
 
 float ScoreModel::getScoreBySidewardsInnaccuracy(const Policy::State &cState, ActionType eAction) const {
-    
         
     /*
      * There is a chance of 70% to succeed for sideways, with 15% for the adjacent tiles
      * which we know exist since the sideways tile exists.
      */
+    
+    if (cState.getTile().getX() == 0 && cState.getTile().getY() == 1) {
+        int i = 2;
+        i++;
+    }
+    
     switch (eAction) {
         case kActionTypeMoveLeftDown:
             

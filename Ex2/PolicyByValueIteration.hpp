@@ -61,7 +61,14 @@ private:
         
         virtual float getUtility() const;
         virtual float getUtility(ActionType eAction) const throw(...);
-                
+        
+        /**
+         * Returns true if terminal state, false otherwise.
+         *
+         * @return True if the State is terminal, false otherwise.
+         */
+        virtual bool isTerminal() const;
+        
     private:
         
         const PolicyByValueIteration& m_cPolicy;
@@ -89,10 +96,10 @@ private:
      * Returns the best actions that can be made based on the input Utility values.
      *
      * @param cMap The map that the actions should be mapped to (via index).
-     * @param fUtilities An array containing the Utility values mapped to the input map.
+     * @param cScoreModel The model that is to calculate the scores for a pair of states.
      * @return A dynamic array that contains the best actions mapped to the map coordinates.
      */
-    ActionType* bestActions(const Map& cMap, float* fUtilities) const;
+    ActionType* bestActions(const Map& cMap, const policy::ScoreModel &cScoreModel) const;
     
     /**
      * Returns the Utility value for the input state.
@@ -101,13 +108,22 @@ private:
      * @return Utility value for the input state.
      */
     float getUtility(const StateByValueIteration& cState) const;
-    
+        
     /**
      * Builds the states that represent the map.
      *
      * @param cMap The map that the states should represent.
      */
     std::vector<const State*> buildStates(const Map& cMap) const;
+    
+    float calculateRMS(float* fOld, float* fNew) const;
+    
+    /**
+     * A debug function that returns the state description of the utilities as map.
+     *
+     * @return A string describing a map with utility values.
+     */
+    std::string statusByUtilities() const;
     
     /**
      * Allocates a dynamic array of a given type.
