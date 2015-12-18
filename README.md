@@ -1,9 +1,21 @@
 # Artificial-Intelligence-Ex2
 This repository contains my solution for implementing value iterator (and resulting policy display) in a way that allows for easy customization. There is a reward and score calculation models which can be extended for further functionality.
 
+The input must be in a .txt file named "input.txt". The output will be written to a new file named "output.txt".
+
+The built in costs are:
+* Road = 1
+* Dirt = 3
+* Hill = 10
+
+The end tile (G) has a reward of 100.
+
+After performing the Algorithm the output will be formatted by row, 
+with each X value being iterated before incrementing the Y value (i.e. going to the next row).
+
 ###Example
 
-For an input that is formatted as:
+Contents of "input.txt":
 
 4<br />
 SHWW<br />
@@ -11,7 +23,7 @@ RRWD<br />
 RRWD<br />
 WRRG<br />
 
-in a .txt file named "input.txt", the resulting output will be:
+Contents of "output.txt":
 
 0,0,D<br />
 0,1,D<br />

@@ -69,6 +69,10 @@ std::ostream& policy::operator<<(std::ostream &out, const Policy &cPolicy) {
         
         //Instructions dont want to print the end tile
         if ((*iterator)->getTile().eType == kEnd) continue;
+
+        //Print only when not in the first row
+        if (iterator != vcStates.begin())
+            out << "\n";
         
         out << **iterator << ",";
 
@@ -87,8 +91,6 @@ std::ostream& policy::operator<<(std::ostream &out, const Policy &cPolicy) {
             case kActionTypeNone:           out << "C";     break;
             default: break;
         }
-        
-        out << "\n";
         
     }
     

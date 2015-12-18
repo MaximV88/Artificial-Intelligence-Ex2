@@ -39,7 +39,10 @@ int main(int argc, const char * argv[]) {
                                            //The rewards the policy should consider
                                            Rewards(kRewardTypeTileValuePenalty));
     
-    std::cout << *cPolicy;
+    //Print the path to file
+    std::ofstream output("output.txt");
+    output << *cPolicy;
+    output.close();
     
     delete cPolicy;
     
