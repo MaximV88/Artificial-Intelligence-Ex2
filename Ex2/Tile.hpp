@@ -24,13 +24,13 @@ enum Types {
 
 enum Directions {
     kRight = 0,
-    kLeft,
-    kUp,
-    kDown,
     kRightDown,
-    kRightUp,
+    kDown,
     kLeftDown,
+    kLeft,
     kLeftUp,
+    kUp,
+    kRightUp,
     kCenter
 };
 

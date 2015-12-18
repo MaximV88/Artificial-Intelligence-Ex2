@@ -42,6 +42,10 @@ public:
      */
     virtual ~PolicyByValueIteration();
     
+protected:
+    
+    virtual const State* getStateForPosition(size_t uiX, size_t uiY) const throw(...);
+    
 private:
     
     /*
@@ -53,7 +57,7 @@ private:
     class StateByValueIteration : public State {
     public:
         
-        StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile* cTile);
+        StateByValueIteration(const PolicyByValueIteration& cPolicy, const Tile& cTile);
         
         virtual float getUtility() const;
         virtual float getUtility(ActionType eAction) const throw(...);
@@ -66,7 +70,7 @@ private:
     
     struct StateByValueIterationComparatorLessThan {
         bool operator() (const StateByValueIteration* lhs, const StateByValueIteration* rhs) {
-            return *(lhs->getTile()) < *(rhs->getTile());
+            return lhs->getTile() < rhs->getTile();
         }
     };
 

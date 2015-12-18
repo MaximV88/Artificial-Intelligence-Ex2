@@ -102,8 +102,32 @@ public:
      */
     size_t getIndex(size_t uiX, size_t uiY) const throw(...);
     
-    /** May return null if out of map bounds */
+    /**
+     * Returns a Tile that is located at the requested location from the origin.
+     *
+     * @param cOrigin The tile from which the direction is considered.
+     * @param direction The direction to take.
+     * @return A tile that is located at the requested location. Stored internally.
+     */
     const Tile* getTile(const Tile& cOrigin, Directions direction) const;
+    
+    /**
+     * Returns a Tile that is located at the requested index.
+     *
+     * @param cOrigin The tile from which the direction is considered.
+     * @param uiIndex The requested index.
+     * @return A tile that is located at the requested index. Stored internally.
+     */
+    const Tile* getTile(size_t uiIndex) const;
+    
+    /**
+     * Returns a copy of the tile at the input coordinate.
+     *
+     * @param uiX The X coordinate.
+     * @param uiY The Y cooridnate.
+     * @return A copy of the Tile located at the input coordinate.
+     */
+    const Tile* getTile(size_t uiX, size_t uiY) const throw(...);
     
 };
 

@@ -8,10 +8,10 @@
 
 #ifndef Policy_hpp
 #define Policy_hpp
+#include "Tile.hpp"
 #include <stdio.h>
 #include <iostream>
 #include <vector>
-
 #define POLICY_NAMESPACE_BEGIN namespace policy {
 #define POLICY_NAMESPACE_END }
 
@@ -19,15 +19,16 @@ class Map;
 class Tile;
 
 enum ActionType {
+    kActionTypeInvalid = -2,
     kActionTypeNone = -1,
     kActionTypeMoveRight,
-    kActionTypeMoveLeft,
-    kActionTypeMoveUp,
-    kActionTypeMoveDown,
     kActionTypeMoveRightDown,
-    kActionTypeMoveRightUp,
+    kActionTypeMoveDown,
     kActionTypeMoveLeftDown,
+    kActionTypeMoveLeft,
     kActionTypeMoveLeftUp,
+    kActionTypeMoveUp,
+    kActionTypeMoveRightUp,
     kActionTypeTotalNumber
 };
 
@@ -58,7 +59,7 @@ public:
          *
          * @param cTile A tile that the state's position represents. Must not be nil.
          */
-        State(const Tile* cTile);
+        State(const Tile& cTile);
         
         /**
          * Copy Constructor.
@@ -72,7 +73,17 @@ public:
          *
          * @return A tile that the state represents.
          */
-        const Tile* getTile() const;
+        const Tile& getTile() const;
+        
+        /**
+         * Prints the State.
+         *
+         * @param out The osteam object that can print.
+         * @param cPolicy The State object that is to be printed.
+         *
+         * @return ostream object that was given in parameter (this made to allow for chaining another print).
+         */
+        friend std::ostream& operator<<(std::ostream &out, const Policy::State &cState);
         
         /**
          * Destructor.
@@ -103,7 +114,7 @@ public:
         virtual float getUtility(ActionType eAction) const throw(...) = 0;
                 
         ///Holds the position that the state represents.
-        const Tile* m_cTile = NULL;
+        const Tile m_cTile;
         
     };
     
@@ -140,7 +151,7 @@ public:
     virtual ActionType bestAction(const Policy::State& cState) const throw() = 0;
     
     /**
-     * Prints the Policy, including the internal action layout of the input map.
+     * Prints the Policy.
      *
      * @param out The osteam object that can print.
      * @param cPolicy The policy object that is to be printed.
@@ -165,7 +176,7 @@ protected:
     
     ///Stores the states that are contained in the policy.
     const std::vector<const State*> m_vcStates;
-    
+
 };
 
 POLICY_NAMESPACE_END

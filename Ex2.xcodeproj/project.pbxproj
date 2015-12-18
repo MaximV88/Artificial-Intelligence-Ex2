@@ -46,6 +46,7 @@
 		947557AB1C2167D20096A8E5 /* Rewards.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rewards.hpp; sourceTree = "<group>"; };
 		947557B61C21FCEB0096A8E5 /* ScoreModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreModel.cpp; sourceTree = "<group>"; };
 		947557B71C21FCEB0096A8E5 /* ScoreModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScoreModel.hpp; sourceTree = "<group>"; };
+		947557C21C242EA10096A8E5 /* input2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				947557A01C2091D60096A8E5 /* input.txt */,
+				947557C21C242EA10096A8E5 /* input2.txt */,
 			);
 			name = Tests;
 			sourceTree = "<group>";

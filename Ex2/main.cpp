@@ -25,24 +25,19 @@ int main(int argc, const char * argv[]) {
     std::string strFormattedMap((std::istreambuf_iterator<char>(ifs) ),
                                 (std::istreambuf_iterator<char>()    ));
     
-    
-    //Create the representation of the map
-    Map cMap = Map(strFormattedMap);
-
     Policy* cPolicy = Policy::createPolicy(
                                           
                                            //The required type is for value iteration
                                            kPolicyTypeValueIteration,
                                           
                                            //The Map the policy should be built on
-                                           cMap,
+                                           Map(strFormattedMap),
                                           
                                            //The transition model the policy should decide by
                                            ScoreModel(kScoreModelTypeSidewaysInnaccuracy),
                                           
                                            //The rewards the policy should consider
                                            Rewards(kRewardTypeTileValuePenalty));
-
     
     std::cout << *cPolicy;
     

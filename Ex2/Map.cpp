@@ -209,6 +209,23 @@ const Tile* Map::getTile(const Tile &cOrigin, Directions direction) const {
     
 }
 
+const Tile* Map::getTile(size_t uiIndex) const {
+    
+    //Return the internal pointer
+    if (uiIndex > m_uiHeight * m_uiWidth)
+        return NULL;
+    
+    return m_cData[uiIndex];
+    
+}
+
+const Tile* Map::getTile(size_t uiX, size_t uiY) const {
+    
+    //Return a copy of the contained tile
+    return new Tile(*m_cData[getIndex(uiX, uiY)]);
+    
+}
+
 const std::vector<const Tile*> Map::getNeighbors(const Tile &cTile) const {
     
     //Guardian - return empty
