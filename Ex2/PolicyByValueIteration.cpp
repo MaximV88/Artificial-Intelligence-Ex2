@@ -149,7 +149,7 @@ ActionType* PolicyByValueIteration::bestActions(const Map &cMap, const policy::S
                 float fUtility = cScoreModel.getScore(**iterator, static_cast<ActionType>(iAction));
 
                 //Assign the maximum value
-                if (fUtility > fBestUtility || (fUtility == fBestUtility && eBestAction == kActionTypeNone)) {
+                if (fUtility > fBestUtility) {
                     
                     fBestUtility = fUtility;
                     eBestAction = static_cast<ActionType>(iAction);
@@ -272,7 +272,7 @@ std::string PolicyByValueIteration::statusByUtilities() const {
         for (size_t uiX = 0 ; uiX < m_cMap.getHeight() ; uiX++) {
             
             std::ostringstream os;
-            os<< (m_fUtilities[m_cMap.getIndex(uiX, uiY)]);
+            os<< m_fUtilities[m_cMap.getIndex(uiX, uiY)];
             
             strDescription += os.str();
             strDescription += "\t\t";
@@ -322,4 +322,11 @@ float PolicyByValueIteration::StateByValueIteration::getUtility(ActionType eActi
     
 }
 
-bool PolicyByValueIteration::StateByValueIteration::isTerminal() const { return getTile().eType == kEnd; }
+bool PolicyByValueIteration::StateByValueIteration::isTerminal() const {
+    
+    Types eType = getTile().eType;
+    
+    //The start and end states are terminal
+    return (eType == kEnd || eType == kStart);
+    
+}

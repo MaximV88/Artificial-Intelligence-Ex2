@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/Maxim/Documents/Bar-Ilan/&#x5d1;&#x5d9;&#x5e0;&#x5d4; &#x5de;&#x5dc;&#x5d0;&#x5db;&#x5d5;&#x5ea;&#x5d9;&#x5ea;/Ex2/Ex2"
+      customWorkingDirectory = "/Users/Maxim/Documents/Bar-Ilan/&#x5d1;&#x5d9;&#x5e0;&#x5d4; &#x5de;&#x5dc;&#x5d0;&#x5db;&#x5d5;&#x5ea;&#x5d9;&#x5ea;/Ex2/Tests"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
